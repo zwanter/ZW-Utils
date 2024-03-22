@@ -27,6 +27,7 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
         } else {
             return ItemStack.deserialize(map);
         }
+
     }
 
     @Override
