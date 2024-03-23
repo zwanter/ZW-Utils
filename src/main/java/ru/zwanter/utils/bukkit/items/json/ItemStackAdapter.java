@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import ru.zwanter.utils.bukkit.GsonBukkit;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -14,12 +15,12 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
 
     @Override
     public ItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        Map<String, Object> map = GsonItemStack.getGson().fromJson(json, TypeToken.get(Map.class).getType());
+        Map<String, Object> map = GsonBukkit.getGson().fromJson(json, TypeToken.get(Map.class).getType());
         map.putIfAbsent("v", Bukkit.getUnsafe().getDataVersion());
 
         if(map.containsKey("meta")) {
             Map<String, Object> meta = (Map<String, Object>) map.get("meta");
-            ConfigurationSerializable deserializedMeta = context.deserialize(GsonItemStack.getGson().toJsonTree(meta), ConfigurationSerializable.class);
+            ConfigurationSerializable deserializedMeta = context.deserialize(GsonBukkit.getGson().toJsonTree(meta), ConfigurationSerializable.class);
             map.remove("meta");
             ItemStack is = ItemStack.deserialize(map);
             is.setItemMeta((ItemMeta) deserializedMeta);
@@ -38,7 +39,7 @@ public class ItemStackAdapter implements JsonSerializer<ItemStack>, JsonDeserial
             JsonElement meta = context.serialize(src.getItemMeta(), ConfigurationSerializable.class);
             map.put("meta", meta.getAsJsonObject());
         }
-        return GsonItemStack.getGson().toJsonTree(map);
+        return GsonBukkit.getGson().toJsonTree(map);
     }
 
 }
