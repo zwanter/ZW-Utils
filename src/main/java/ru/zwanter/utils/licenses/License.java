@@ -39,7 +39,8 @@ public class License {
     /**
      * {@link License}
      */
-    private License(String requestKey, String license, String server, JavaPlugin plugin) {
+
+    public License(String requestKey, String license, String server, JavaPlugin plugin) {
         this.license = license;
         this.server = server;
         this.plugin = plugin;
@@ -55,7 +56,7 @@ public class License {
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
             
             connection.setRequestProperty("License-Key", license);
-            connection.setRequestProperty("Plugin-Name", plugin.getDescription().getName());
+            connection.setRequestProperty("Plugin-Name", plugin.getPluginMeta().getName());
             connection.setRequestProperty("Request-Key", requestKey);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -82,7 +83,7 @@ public class License {
             } else {
                 if (debug) logger.info("[DEBUG] FAILED VALIDATION");
                 valid = false;
-                returnType = ReturnType.valueOf(responseSplited[0]);
+                 returnType = ReturnType.valueOf(responseSplited[0]);
 
                 if (debug) logger.info("[DEBUG] FAILED WITH RESULT: " + returnType);
             }
@@ -91,43 +92,6 @@ public class License {
                 ex.printStackTrace();
             }
         }
-    }
-
-    public static LicenseBuilder builder() {
-        return new LicenseBuilder();
-    }
-
-    public static class LicenseBuilder {
-
-        private String license;
-        private String server;
-        private JavaPlugin plugin;
-        private String requestKey;
-
-        public LicenseBuilder setLicense(String license){
-            this.license = license;
-            return this;
-        }
-
-        public LicenseBuilder setServer(String server){
-            this.server = server;
-            return this;
-        }
-
-        public LicenseBuilder setPlugin(JavaPlugin plugin){
-            this.plugin = plugin;
-            return this;
-        }
-
-        public LicenseBuilder setRequestKey(String requestKey){
-            this.requestKey = requestKey;
-            return this;
-        }
-
-        public License build(){
-            return new License(requestKey, license, server, plugin);
-        }
-
     }
 
 }
