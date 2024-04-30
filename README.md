@@ -2,7 +2,7 @@
 ### Repository:
 ```xml
 <repository>
-    <id>ClientInteractAPI-mvn-repo</id>
+    <id>ZW-Utils-mvn-repo</id>
     <url>https://raw.github.com/zwanter/ZW-Utils/mvn-repo/</url>
 </repository>
 ```
