@@ -40,7 +40,7 @@ public class License {
      * {@link License}
      */
 
-    public License(String requestKey, String license, String server, JavaPlugin plugin) {
+    private License(String requestKey, String license, String server, JavaPlugin plugin) {
         this.license = license;
         this.server = server;
         this.plugin = plugin;
@@ -92,6 +92,47 @@ public class License {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public static LicenseBuilder builder() {
+        return new LicenseBuilder();
+    }
+
+    public static class LicenseBuilder {
+
+        private String license;
+        private String server;
+        private JavaPlugin plugin;
+        private String requestKey;
+
+        public LicenseBuilder() {
+
+        }
+
+        public LicenseBuilder setLicense(String license) {
+            this.license = license;
+            return this;
+        }
+
+        public LicenseBuilder setServer(String server) {
+            this.server = server;
+            return this;
+        }
+
+        public LicenseBuilder setPlugin(JavaPlugin plugin) {
+            this.plugin = plugin;
+            return this;
+        }
+
+        public LicenseBuilder setRequestKey(String requestKey) {
+            this.requestKey = requestKey;
+            return this;
+        }
+
+        public License build(){
+            return new License(requestKey, license, server, plugin);
+        }
+
     }
 
 }
