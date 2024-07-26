@@ -20,7 +20,7 @@ public abstract class PluginInventory implements InventoryHolder {
     }
 
     @Override
-    public abstract Inventory getInventory();
+    public abstract @NotNull Inventory getInventory();
 
     public abstract void whenClicked(InventoryClickEvent event);
 

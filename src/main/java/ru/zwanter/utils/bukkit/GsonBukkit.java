@@ -50,7 +50,7 @@ public class GsonBukkit {
         JsonArray jsonArray = jsonObject.getAsJsonArray("items");
 
         if (jsonArray == null) {
-            throw new IllegalArgumentException("JsonArray 'items' not found in JsonObject");
+            return new ArrayList<>();
         }
 
         List<ItemStack> itemStacks = new ArrayList<>();
@@ -69,7 +69,7 @@ public class GsonBukkit {
         JsonArray jsonArray = jsonObject.getAsJsonArray("players-uuid");
 
         if (jsonArray == null) {
-            throw new IllegalArgumentException("JsonArray 'items' not found in JsonObject");
+            return new ArrayList<>();
         }
 
         List<Player> players = new ArrayList<>();
@@ -100,7 +100,7 @@ public class GsonBukkit {
         JsonArray jsonArray = jsonObject.getAsJsonArray("players-nicknames");
 
         if (jsonArray == null) {
-            throw new IllegalArgumentException("JsonArray 'items' not found in JsonObject");
+            return new ArrayList<>();
         }
 
         List<Player> players = new ArrayList<>();

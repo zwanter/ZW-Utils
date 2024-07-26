@@ -1,7 +1,6 @@
 package ru.zwanter.utils.bukkit.inventory.data;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -9,6 +8,7 @@ import ru.zwanter.utils.bukkit.inventory.PluginInventory;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class InventoryMatrix {
 
@@ -71,14 +71,21 @@ public class InventoryMatrix {
         fillInventory();
     }
 
+    public Inventory setName(String name) {
+        this.name = name;
+        this.inventory = Bukkit.createInventory(holder, matrix.length * 9, name);
+        fillInventory();
+        return this.inventory;
+    }
+
     private void fillInventory() {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 char key = matrix[i][j];
                 if (key != ' ' && items.containsKey(String.valueOf(key))) {
-                    inventory.setItem(i * 9 + j, items.get(String.valueOf(key)));
+                    this.inventory.setItem(i * 9 + j, items.get(String.valueOf(key)));
                 } else {
-                    inventory.setItem(i * 9 + j, null);
+                    this.inventory.setItem(i * 9 + j, null);
                 }
             }
         }
@@ -86,19 +93,6 @@ public class InventoryMatrix {
 
     public static InventoryMatrixBuilder builder() {
         return new InventoryMatrixBuilder();
-    }
-
-    @Setter
-    @Getter
-    public static class MatrixItem {
-        private char key;
-        private ItemStack value;
-
-        public MatrixItem(char key, ItemStack value) {
-            this.key = key;
-            this.value = value;
-        }
-
     }
 
     public static class InventoryMatrixBuilder {
@@ -120,6 +114,11 @@ public class InventoryMatrix {
             return this;
         }
 
+        public InventoryMatrixBuilder setLines(List<String> lines) {
+            this.lines = lines.toArray(new String[lines.size()]);
+            return this;
+        }
+
         public InventoryMatrixBuilder setName(String name) {
             this.name = name;
             return this;
@@ -132,6 +131,11 @@ public class InventoryMatrix {
 
         public InventoryMatrixBuilder addMatrixItem(MatrixItem... matrixItems) {
             Arrays.stream(matrixItems).forEach(matrixItem -> {items.put(matrixItem.getKey(), matrixItem.getValue());});
+            return this;
+        }
+
+        public InventoryMatrixBuilder addMatrixItem(List<MatrixItem> matrixItems) {
+            matrixItems.forEach(matrixItem -> {items.put(matrixItem.getKey(), matrixItem.getValue());});
             return this;
         }
 
