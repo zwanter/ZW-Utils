@@ -11,6 +11,6 @@
 <dependency>
     <groupId>ru.zwanter</groupId>
     <artifactId>ZW-Utils</artifactId>
-    <version>0.4</version>
+    <version>0.6</version>
 </dependency>
 ```
