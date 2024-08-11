@@ -3,6 +3,7 @@ package ru.zwanter.utils.bukkit.inventory.data;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import ru.zwanter.utils.bukkit.inventory.PluginInventory;
 
@@ -76,6 +77,13 @@ public class InventoryMatrix {
         this.inventory = Bukkit.createInventory(holder, matrix.length * 9, name);
         fillInventory();
         return this.inventory;
+    }
+
+    public Inventory setHolder(PluginInventory holder) {
+        this.holder = holder;
+        this.inventory = Bukkit.createInventory(holder, matrix.length * 9, name);
+        fillInventory();
+        return inventory;
     }
 
     private void fillInventory() {
