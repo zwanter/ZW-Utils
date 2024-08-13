@@ -90,8 +90,8 @@ public class InventoryMatrix {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 char key = matrix[i][j];
-                if (key != ' ' && items.containsKey(String.valueOf(key))) {
-                    this.inventory.setItem(i * 9 + j, items.get(String.valueOf(key)));
+                if (key != ' ' && items.containsKey(key)) {
+                    this.inventory.setItem(i * 9 + j, items.get(key));
                 } else {
                     this.inventory.setItem(i * 9 + j, null);
                 }
